@@ -35,9 +35,11 @@ with open('traffic_measurement.csv', 'w') as f:
         'Vehicle Type/Size, Vehicle Color, Vehicle Movement Direction, Vehicle Speed (km/h)'
     writer.writerows([csv_line.split(',')])
 
+'''
 if tf.__version__ < '1.4.0':
-    raise ImportError('Please upgrade your tensorflow installation to v1.4.* or later!'
+    #raise ImportError('Please upgrade your tensorflow installation to v1.4.* or later!'
                       )
+'''
 
 # input video
 cap = cv2.VideoCapture('sub-1504614469486.mp4')
@@ -110,6 +112,7 @@ def object_detection_function():
 
             # for all the frames that are extracted from input video
             while cap.isOpened():
+                start_time = time.time()
                 (ret, frame) = cap.read()
 
                 if not ret:
@@ -235,8 +238,10 @@ def object_detection_function():
                         (size, color, direction, speed) = \
                             csv_line.split(',')
                         writer.writerows([csv_line.split(',')])
+                print("--- %s seconds ---" % (time.time() - start_time))
             cap.release()
             cv2.destroyAllWindows()
 
 
-object_detection_function()		
+
+object_detection_function()
